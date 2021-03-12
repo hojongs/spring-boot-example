@@ -1,11 +1,11 @@
-package com.hojong.spring.boot.example
+package com.hojong.springbootexample
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SpringBootExampleApplication
+class App
 
 fun main(args: Array<String>) {
-	runApplication<SpringBootExampleApplication>(*args)
+	runApplication<App>(*args)
 }
