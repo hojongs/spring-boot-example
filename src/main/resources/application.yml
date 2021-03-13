@@ -1,6 +1,9 @@
 server:
   port: 8080
 
+grpc:
+  port: 6565
+
 management:
   endpoints:
     web:
