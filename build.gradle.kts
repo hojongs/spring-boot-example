@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.4.31"
     kotlin("plugin.spring") version "1.4.31"
+    kotlin("plugin.jpa") version "1.4.31"
 }
 
 group = "com.hojong"
@@ -20,6 +21,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // jpa
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("com.h2database:h2")
 
     // webflux
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
