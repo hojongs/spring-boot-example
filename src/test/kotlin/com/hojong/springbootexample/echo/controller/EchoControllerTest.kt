@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.hojong.springbootexample.App
 import com.hojong.springbootexample.echo.dto.EchoMessage
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
@@ -27,9 +28,10 @@ internal class EchoControllerTest(
 
     @Test
     fun echo() {
+        val message = "hello"
         val queryParams = CollectionUtils.toMultiValueMap(
             mapOf(
-                "message" to listOf("hello"),
+                "message" to listOf(message),
             )
         )
 
@@ -47,8 +49,8 @@ internal class EchoControllerTest(
             .expectBody()
             .consumeWith { result ->
                 val reply = mapper.readValue(result.responseBody, EchoMessage::class.java)
-                Assertions.assertThat(reply.message)
-                    .isEqualTo("Reply hello")
+                assertThat(reply.message)
+                    .isEqualTo(message)
             }
     }
 }

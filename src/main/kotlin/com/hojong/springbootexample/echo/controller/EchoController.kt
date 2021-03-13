@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/echo/")
+@RequestMapping("/echo")
 class EchoController(
     private val echoService: EchoService,
 ) {
     @GetMapping("/echo")
-    fun echo(
-        @RequestParam message: String
-    ): Mono<EchoMessage> =
+    fun echo(@RequestParam message: String): Mono<EchoMessage> =
         echoService.echo(message)
 }
