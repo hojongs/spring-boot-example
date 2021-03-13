@@ -1,14 +1,10 @@
 package com.hojong.springbootexample.user.entity
 
 import com.hojong.springbootexample.user.factory.UserFactory
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import org.springframework.data.annotation.Id
 
-@Entity
 data class User(
     @Id
-    @GeneratedValue
     val id: Long,
     val name: String,
 ) {

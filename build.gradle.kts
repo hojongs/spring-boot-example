@@ -22,9 +22,9 @@ dependencies {
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    // jpa
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("com.h2database:h2")
+    // r2dbc
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+    runtimeOnly("io.r2dbc:r2dbc-h2")
 
     // webflux
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

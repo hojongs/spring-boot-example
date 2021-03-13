@@ -1,8 +1,9 @@
 package com.hojong.springbootexample.user.repository
 
 import com.hojong.springbootexample.user.entity.User
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import reactor.core.publisher.Mono
 
-interface UserRepository : JpaRepository<User, Long> {
-    fun findByName(name: String): User?
+interface UserRepository : ReactiveCrudRepository<User, Long> {
+    fun findByName(name: String): Mono<User>
 }

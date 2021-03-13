@@ -7,13 +7,14 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.dao.IncorrectResultSizeDataAccessException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestConstructor
 
-@DataJpaTest
+@DataR2dbcTest
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ActiveProfiles("test")
 class UserRepositoryTest(
@@ -24,7 +25,7 @@ class UserRepositoryTest(
     @BeforeEach
     fun setUp() {
         val user = User.of("test-user")
-        savedTestUser = userRepository.save(user)
+        savedTestUser = userRepository.save(user).block()!!
     }
 
     @AfterEach
@@ -38,10 +39,10 @@ class UserRepositoryTest(
         fun success() {
             // when
             val user = User.of("hojong")
-            val saved = userRepository.save(user)
+            val saved = userRepository.save(user).block()!!
 
             // then
-            val found = userRepository.findByIdOrNull(saved.id)!!
+            val found = userRepository.findById(saved.id).block()!!
             println(found)
 
             assertThat(saved.id)
@@ -77,7 +78,7 @@ class UserRepositoryTest(
         fun `given there are 2 users matched name, then error`() {
             // given
             val user = User.of(savedTestUser.name)
-            savedTestUser = userRepository.save(user)
+            savedTestUser = userRepository.save(user).block()!!
 
             // when
             assertThrows<IncorrectResultSizeDataAccessException> {

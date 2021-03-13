@@ -3,6 +3,7 @@ package com.hojong.springbootexample.user.controller
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.hojong.springbootexample.App
 import com.hojong.springbootexample.user.entity.User
+import com.hojong.springbootexample.user.repository.UserRepository
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.awaitSingleOrNull
@@ -33,7 +34,8 @@ import kotlin.system.measureTimeMillis
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @ActiveProfiles("test")
 internal class UserControllerTest(
-    private val webTestClient: WebTestClient
+    private val webTestClient: WebTestClient,
+    private val userRepository: UserRepository,
 ) {
     private val mapper = jacksonObjectMapper()
     private val userServiceClient = UserServiceClient(webTestClient)
@@ -60,6 +62,9 @@ internal class UserControllerTest(
 
         @Test
         fun performance() {
+            val a = userRepository.save(User.of("test")).block()!!
+            println(a)
+
             val prefix = "hojong2"
             val count = 10000
 
