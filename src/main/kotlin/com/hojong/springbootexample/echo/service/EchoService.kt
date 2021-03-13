@@ -1,6 +1,6 @@
-package com.hojong.springbootexample.service
+package com.hojong.springbootexample.echo.service
 
-import com.hojong.springbootexample.dto.EchoMessage
+import com.hojong.springbootexample.echo.dto.EchoMessage
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 

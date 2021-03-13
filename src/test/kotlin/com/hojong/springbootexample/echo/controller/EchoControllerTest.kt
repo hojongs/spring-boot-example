@@ -1,8 +1,8 @@
-package com.hojong.springbootexample.controller
+package com.hojong.springbootexample.echo.controller
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.hojong.springbootexample.App
-import com.hojong.springbootexample.dto.EchoMessage
+import com.hojong.springbootexample.echo.dto.EchoMessage
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient

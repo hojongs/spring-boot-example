@@ -1,7 +1,7 @@
-package com.hojong.springbootexample.controller
+package com.hojong.springbootexample.echo.controller
 
-import com.hojong.springbootexample.dto.EchoMessage
-import com.hojong.springbootexample.service.EchoService
+import com.hojong.springbootexample.echo.dto.EchoMessage
+import com.hojong.springbootexample.echo.service.EchoService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
