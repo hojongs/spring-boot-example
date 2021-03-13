@@ -1,4 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.google.protobuf.gradle.generateProtoTasks
+import com.google.protobuf.gradle.id
+import com.google.protobuf.gradle.plugins
+import com.google.protobuf.gradle.protobuf
+import com.google.protobuf.gradle.protoc
 
 plugins {
     id("org.springframework.boot") version "2.4.3"
@@ -6,6 +11,8 @@ plugins {
     kotlin("jvm") version "1.4.31"
     kotlin("plugin.spring") version "1.4.31"
     kotlin("plugin.jpa") version "1.4.31"
+    id("com.google.protobuf") version "0.8.15"
+    idea
 }
 
 group = "com.hojong"
@@ -15,6 +22,11 @@ java.sourceCompatibility = JavaVersion.VERSION_15
 repositories {
     mavenCentral()
 }
+
+val grpcSpringBootStarter = "4.4.4"
+val protobufVersion = "3.15.6"
+val grpcVersion = "1.36.0"
+val grpcKotlinVersion = "1.0.0"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -34,6 +46,10 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     testImplementation("io.projectreactor:reactor-test")
+
+    // grpc
+    implementation("io.github.lognet:grpc-spring-boot-starter:$grpcSpringBootStarter")
+    implementation("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
 }
 
 tasks.withType<KotlinCompile> {
@@ -45,4 +61,26 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:$protobufVersion"
+    }
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+        }
+        id("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:$grpcKotlinVersion:jdk7@jar"
+        }
+    }
+    generateProtoTasks {
+        all().forEach { generateProtoTask ->
+            generateProtoTask.plugins {
+                id("grpc")
+                id("grpckt")
+            }
+        }
+    }
 }
