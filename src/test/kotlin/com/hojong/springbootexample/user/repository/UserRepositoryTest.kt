@@ -1,5 +1,6 @@
 package com.hojong.springbootexample.user.repository
 
+import com.hojong.springbootexample.test.TestBase
 import com.hojong.springbootexample.user.entity.User
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -10,12 +11,9 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.dao.IncorrectResultSizeDataAccessException
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestConstructor
 
 @DataJpaTest
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@ActiveProfiles("test")
+@TestBase
 class UserRepositoryTest(
     private val userRepository: UserRepository,
 ) {

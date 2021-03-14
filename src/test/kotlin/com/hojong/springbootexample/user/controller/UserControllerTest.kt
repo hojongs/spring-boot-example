@@ -2,6 +2,7 @@ package com.hojong.springbootexample.user.controller
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.hojong.springbootexample.App
+import com.hojong.springbootexample.test.TestBase
 import com.hojong.springbootexample.user.entity.User
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -13,8 +14,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestConstructor
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.returnResult
 import org.springframework.util.CollectionUtils
@@ -30,8 +29,7 @@ import kotlin.system.measureTimeMillis
     classes = [App::class],
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@ActiveProfiles("test")
+@TestBase
 internal class UserControllerTest(
     private val webTestClient: WebTestClient
 ) {

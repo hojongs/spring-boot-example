@@ -3,14 +3,12 @@ package com.hojong.springbootexample.echo.controller
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.hojong.springbootexample.App
 import com.hojong.springbootexample.echo.dto.EchoMessage
-import org.assertj.core.api.Assertions
+import com.hojong.springbootexample.test.TestBase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestConstructor
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.util.CollectionUtils
 
@@ -19,8 +17,7 @@ import org.springframework.util.CollectionUtils
     classes = [App::class],
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@ActiveProfiles("test")
+@TestBase
 internal class EchoControllerTest(
     private val webTestClient: WebTestClient
 ) {
