@@ -6,11 +6,11 @@ plugins {
     kotlin("jvm") version "1.4.31"
     kotlin("plugin.spring") version "1.4.31"
     kotlin("plugin.jpa") version "1.4.31"
+    id("maven-publish")
 }
 
 group = "com.hojong"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_15
 
 repositories {
     mavenCentral()
@@ -36,13 +36,45 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "15"
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "15"
+        }
+    }
+
+    withType<Test> {
+        useJUnitPlatform()
+    }
+
+}
+tasks {
+    jar {
+        enabled = true
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+java {
+    sourceCompatibility = JavaVersion.VERSION_15
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>(project.name) {
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        maven {
+            name = "gpr"
+            credentials {
+                username = System.getenv("GPR_USERNAME")
+                password = System.getenv("GPR_TOKEN")
+            }
+            url = uri("https://maven.pkg.github.com/hojongs/${project.name}")
+        }
+    }
 }
