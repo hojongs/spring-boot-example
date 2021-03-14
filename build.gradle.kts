@@ -20,6 +20,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("com.vladmihalcea:hibernate-types-52:2.10.3")
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -36,6 +37,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("io.projectreactor:reactor-tools")
     testImplementation("io.projectreactor:reactor-test")
 }
 
@@ -61,6 +63,10 @@ tasks {
 java {
     sourceCompatibility = JavaVersion.VERSION_15
     withSourcesJar()
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
 }
 
 publishing {
