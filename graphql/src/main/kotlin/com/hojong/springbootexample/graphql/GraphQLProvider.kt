@@ -13,24 +13,25 @@ import kotlin.text.Charsets.UTF_8
 
 @Component
 class GraphQLProvider(
-    private val graphQLDataFetchers: GraphQLDataFetchers
+    private val graphQLDataFetchers: GraphQLDataFetchers,
+    private val pageCountDataFetcher: PageCountDataFetcher,
 ) {
+    companion object {
+        const val schemaResourceName = "schema.graphqls"
+    }
+
     @Bean
-    fun graphQL(): GraphQL {
-        val url = Resources.getResource("schema.graphqls")
-        val sdl: String = Resources.toString(url, UTF_8)
-        val graphQLSchema = buildSchema(sdl)
-        return GraphQL.newGraphQL(graphQLSchema).build()
-    }
+    fun graphQL(): GraphQL =
+        Resources.getResource(schemaResourceName)
+            .let { url -> Resources.toString(url, UTF_8) }
+            .let { sdl -> buildSchema(sdl) }
+            .let { graphQLSchema -> GraphQL.newGraphQL(graphQLSchema).build() }
 
-    private fun buildSchema(sdl: String): GraphQLSchema? {
-        val typeRegistry = SchemaParser().parse(sdl)
-        val runtimeWiring = buildWiring()
-        val schemaGenerator = SchemaGenerator()
-        return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring)
-    }
+    private fun buildSchema(sdl: String): GraphQLSchema =
+        SchemaParser().parse(sdl)
+            .let { typeRegistry -> SchemaGenerator().makeExecutableSchema(typeRegistry, buildRuntimeWiring()) }
 
-    private fun buildWiring(): RuntimeWiring =
+    private fun buildRuntimeWiring(): RuntimeWiring =
         RuntimeWiring.newRuntimeWiring()
             .type(
                 newTypeWiring("Query")
@@ -39,6 +40,7 @@ class GraphQLProvider(
             .type(
                 newTypeWiring("Book")
                     .dataFetcher("author", graphQLDataFetchers.authorDataFetcher)
+//                    .dataFetcher("pageCount", pageCountDataFetcher)
             )
             .build()
 }
