@@ -33,20 +33,15 @@ java {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.projectreactor:reactor-test")
 
-    // actuator
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-}
-
-configurations.all {
-    exclude(group = "org.junit.vintage")
+    // graphql
+    implementation("com.graphql-java:graphql-java:11.0")
+    implementation("com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0")
+    implementation("com.google.guava:guava:26.0-jre")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

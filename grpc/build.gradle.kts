@@ -21,23 +21,6 @@ repositories {
     mavenCentral()
 }
 
-val grpcSpringBootStarterVersion = "4.4.5"
-val protobufVersion = "3.15.6"
-val grpcVersion = "1.36.0"
-val grpcKotlinVersion = "1.0.0"
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation(kotlin("reflect"))
-    implementation(kotlin("stdlib-jdk8"))
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    // grpc
-    implementation("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
-    implementation("io.github.lognet:grpc-spring-boot-starter:$grpcSpringBootStarterVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
-}
-
 tasks {
     withType<KotlinCompile> {
         kotlinOptions {
@@ -53,6 +36,23 @@ tasks {
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
+}
+
+val grpcSpringBootStarterVersion = "4.4.5"
+val protobufVersion = "3.15.6"
+val grpcVersion = "1.36.0"
+val grpcKotlinVersion = "1.0.0"
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation(kotlin("reflect"))
+    implementation(kotlin("stdlib-jdk8"))
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // grpc
+    implementation("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
+    implementation("io.github.lognet:grpc-spring-boot-starter:$grpcSpringBootStarterVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
 }
 
 protobuf {

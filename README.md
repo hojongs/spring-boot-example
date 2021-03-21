@@ -35,5 +35,8 @@
 - publishing module : https://github.com/hojongs/spring-boot-example/tree/master/publishing
 - build script : https://github.com/hojongs/spring-boot-example/blob/master/publishing/build.gradle.kts#L47-L64
 
+### TBD: GraphQL
+- graphql : https://github.com/hojongs/spring-boot-example/tree/master/graphql
+
 [webflux]: https://github.com/hojongs/spring-boot-example/tree/master/webflux
 [webflux build script]: https://github.com/hojongs/spring-boot-example/blob/master/webflux/build.gradle.kts

@@ -16,17 +16,6 @@ repositories {
 	mavenCentral()
 }
 
-dependencies {
-	implementation(kotlin("reflect"))
-	implementation(kotlin("stdlib-jdk8"))
-
-	// jpa
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	runtimeOnly("com.h2database:h2")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
 tasks {
 	withType<KotlinCompile> {
 		kotlinOptions {
@@ -42,6 +31,17 @@ tasks {
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+	implementation(kotlin("reflect"))
+	implementation(kotlin("stdlib-jdk8"))
+
+	// jpa
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	runtimeOnly("com.h2database:h2")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 allOpen {
