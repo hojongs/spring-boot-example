@@ -1,5 +1,6 @@
 package com.hojong.springbootexample.user.controller
 
+import com.hojong.springbootexample.utils.LoggerProvider
 import com.hojong.springbootexample.user.dto.CreateUserRequest
 import com.hojong.springbootexample.user.entity.User
 import com.hojong.springbootexample.user.service.UserService
@@ -15,9 +16,12 @@ import reactor.kotlin.core.publisher.toMono
 class UserController(
     private val userService: UserService,
 ) {
+    companion object : LoggerProvider()
+
     @PostMapping
     fun createUser(@RequestParam name: String): Mono<User> =
         CreateUserRequest(name)
             .toMono()
             .flatMap { userService.createUser(it) }
+            .doOnNext { logger.info("hi") }
 }

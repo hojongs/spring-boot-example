@@ -19,5 +19,5 @@ data class CreatePostRequet(
     }
 
     fun toPost() =
-        Post.of(title, content)
+        Post.createTransient(title, content, Post.MyMessage("temp"))
 }
