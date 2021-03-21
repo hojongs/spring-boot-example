@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    idea
     id("org.springframework.boot") version "2.4.4"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.4.31"
     kotlin("plugin.spring") version "1.4.31"
+    id("maven-publish")
 }
 
 group = "com.hojong.springbootexample"
@@ -16,18 +16,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.projectreactor:reactor-test")
-
-    // actuator
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 }
 
 tasks {
@@ -41,12 +33,32 @@ tasks {
     withType<Test> {
         useJUnitPlatform()
     }
+
+    withType<Jar> {
+        enabled = true
+    }
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
 }
 
-configurations.all {
-    exclude(group = "org.junit.vintage")
+publishing {
+    publications {
+        create<MavenPublication>(project.name) {
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        maven {
+            name = "gpr"
+            credentials {
+                username = System.getenv("GPR_USERNAME")
+                password = System.getenv("GPR_TOKEN")
+            }
+            url = uri("https://maven.pkg.github.com/hojongs/spring-boot-example")
+        }
+    }
 }
