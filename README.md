@@ -38,5 +38,14 @@
 ### TBD: GraphQL
 - graphql : https://github.com/hojongs/spring-boot-example/tree/master/graphql
 
+## Run postgres docker container
+
+```shell
+docker-compose -f docker-compose.yml up
+```
+
+- You can access adminer by `localhost:8899` to connect to postgres
+- Or, `docker exec -it my-postgres psql -p 5432 -U asdf -d asdf`
+
 [webflux]: https://github.com/hojongs/spring-boot-example/tree/master/webflux
 [webflux build script]: https://github.com/hojongs/spring-boot-example/blob/master/webflux/build.gradle.kts
