@@ -6,6 +6,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.4.31"
     kotlin("plugin.spring") version "1.4.31"
+    jacoco
 }
 
 group = "com.hojong.springbootexample"
@@ -49,4 +50,31 @@ dependencies {
 
 configurations.all {
     exclude(group = "org.junit.vintage")
+}
+
+// configure for jacoco
+tasks {
+    withType<Test> {
+        finalizedBy(jacocoTestReport)
+    }
+
+    withType<JacocoReport> {
+        dependsOn(test)
+
+        classDirectories.setFrom(
+            files(
+                classDirectories.files.map { baseDir ->
+                    fileTree(baseDir)
+                        .exclude(
+                            "**/MainKt.class"
+                        )
+                }
+            )
+        )
+
+        // print each class file names
+//        classDirectories.files
+//            .map { it.name }
+//            .forEach { println(it) }
+    }
 }
