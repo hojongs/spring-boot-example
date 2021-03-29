@@ -1,2 +1,6 @@
 grpc:
   port: 6565
+  enable-reflection: true
+  security:
+    cert-chain: classpath:cert/backend.cert
+    private-key: file:./src/main/resources/cert/backend.key
