@@ -7,13 +7,13 @@ client.load(
     'greeter.proto'
 );
 
-export let options = {
-    insecureSkipTLSVerify: true,
-};
+//  export let options = {
+//     insecureSkipTLSVerify: true, // it works with HTTP only unlike gRPC
+// };
 
 export default () => {
     client.connect('localhost:6565', {
-        plaintext: false
+        plaintext: true
     });
 
     const data = { name: 'something' };

@@ -7,9 +7,9 @@ REQUEST='{"name": "hojong"}'
 METHOD=helloworld.Greeter/SayHello
 echo "grpcurl -d $REQUEST $HOST $METHOD"
 grpcurl \
-    -insecure \
-	-d "$REQUEST" \
-	$HOST \
-	$METHOD
+  -insecure \
+  -d "$REQUEST" \
+  $HOST \
+  $METHOD
 
- 	# -cacert ./backend.cert \
+# -cacert ./backend.cert \
